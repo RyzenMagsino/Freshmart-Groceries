@@ -11,6 +11,7 @@ const login = async(req, res) =>{
 
 const signup = async(req, res) =>{
     try {
+        console.log (req.body)
         const response = await axios.post(`${process.env.AUTH_SERVICE}/new`, req.body)
         res.status(201).json(response.data)
     } catch (error) {

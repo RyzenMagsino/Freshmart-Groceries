@@ -9,6 +9,7 @@ const generateToken = (_id) =>{
 
 const signup = async(req, res) =>{
     const {username, password, userLevel} = req.body
+    console.log (username,password,userLevel)
 
     try{
         const user = await User.signup(username, password, userLevel)

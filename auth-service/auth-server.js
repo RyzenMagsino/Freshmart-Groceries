@@ -15,7 +15,7 @@ app.use((req, res, next) =>{
     next()
 })
 
-mongoose.connect(process.env.DB)
+mongoose.connect(process.env.MONGO_URI)
     .then(() =>{
         app.listen(process.env.PORT, () =>{
             console.log(`Connected to database and listening to port ${process.env.PORT}`)
