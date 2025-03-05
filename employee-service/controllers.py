@@ -2,16 +2,21 @@ from fastapi import APIRouter, HTTPException
 from models import EmployeeSchema
 from bson import ObjectId
 from database import db
+from datetime import datetime
 
 router = APIRouter()
 
 # Add Employee
 @router.post("/add")
 async def add_employee(employee: EmployeeSchema):
-    employee_dict = employee.dict()
+    employee_dict = employee.model_dump()  # Convert Pydantic model to dictionary
+    employee_dict["date_of_birth"] = str(employee.date_of_birth)  # Convert date to string for MongoDB
+
     result = await db.employees.insert_one(employee_dict)
     employee_dict["_id"] = str(result.inserted_id)  # Convert ObjectId to string
+
     return {"success": True, "message": employee_dict}
+
 
 # Get All Employees
 @router.get("/")
